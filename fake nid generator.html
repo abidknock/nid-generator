@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  body{
+    max-width: 70%;
+    margin: 50px auto;
+    background-color: #333;
+    color: #fff !important;
+  }
+  form {
+   border: 2px solid #ccc;
+   padding: 20px;
+   border-radius: 10px;
+   font-family: 'Roboto', sans-serif;
+   font-size: 18px;
+ }
+
+ label {
+   display: block;
+   margin-bottom: 10px;
+   font-weight: bold;
+   color: #fff;
+ }
+
+ input[type="text"], input[type="url"] {
+   border: 2px solid #ccc;
+   padding: 8px;
+   border-radius: 5px;
+   font-size: 16px;
+   margin-bottom: 15px;
+   width: 100%;
+   box-sizing: border-box;
+ }
+
+ button[type="submit"] {
+   background-color: #4CAF50;
+   color: white;
+   padding: 12px 20px;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+   font-size: 18px;
+ }
+
+ button[type="submit"]:hover {
+   background-color: #3e8e41;
+ }
+
+ #preview {
+   margin-top: 20px;
+   border: 2px solid #ccc;
+   padding: 20px;
+   border-radius: 10px;
+   box-sizing: border-box;
+ }
+
+ #download-link {
+   display: block;
+   margin-top: 20px;
+   text-align: center;
+   font-size: 18px;
+   font-weight: bold;
+   color: #4CAF50;
+   text-decoration: none;
+ }
+</style>
+</style>
+<form method="GET" action="https://fake-nid-gen.vercel.app/api/image" onsubmit="generateImage(event)">
+ <label for="name">Name Bangla:</label>
+ <input type="text" id="name" name="name" required>
+ <br>
+ <label for="eng_name">English Name:</label>
+ <input type="text" id="eng_name" name="eng_name" required>
+ <br>
+ <label for="father">Father's Name:</label>
+ <input type="text" id="father" name="father" required>
+ <br>
+ <label for="mother">Mother's Name:</label>
+ <input type="text" id="mother" name="mother" required>
+ <br>
+ <label for="date">Date:</label>
+ <input type="text" id="date" name="date" required>
+ <br>
+ <label for="signature">Signature:</label>
+ <input type="text" id="signature" name="signature" required>
+ <br>
+ <label for="id">ID:</label>
+ <input type="text" id="id" name="id" required>
+ <br>
+ <label for="image_url">Image URL:</label>
+ <input type="url" id="image_url" name="image_url" required>
+ <br>
+ <button type="submit">Generate</button>
+</form>
+
+<div id="preview"></div>
+
+<a id="download-link" href="#" download="generated-image.png" style="display: none;">Download Image</a>
+
+<script>
+function generateImage(event) {
+ event.preventDefault(); // prevent the form from submitting
+ 
+ // build the URL with the user's input values
+ const url = `https://fake-nid-gen.vercel.app/api/image?name=${encodeURIComponent(document.getElementById('name').value)}&eng_name=${encodeURIComponent(document.getElementById('eng_name').value)}&father=${encodeURIComponent(document.getElementById('father').value)}&mother=${encodeURIComponent(document.getElementById('mother').value)}&date=${encodeURIComponent(document.getElementById('date').value)}&signature=${encodeURIComponent(document.getElementById('signature').value)}&id=${encodeURIComponent(document.getElementById('id').value)}&image_url=${encodeURIComponent(document.getElementById('image_url').value)}&cs=tinysrgb&w=1260&h=750&dpr=1`;
+ 
+ // create an <img> element with the generated image URL as the source
+ const img = document.createElement('img');
+ img.src = url;
+ 
+ // add the <img> element to the preview div
+ const previewDiv = document.getElementById('preview');
+ previewDiv.innerHTML = ''; // clear any existing preview images
+ previewDiv.appendChild(img);
+ 
+ // show the download link
+ const downloadLink = document.getElementById('download-link');
+ downloadLink.style.display = 'block';
+ downloadLink.href = url;
+}
+</script>
